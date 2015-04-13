@@ -101,80 +101,84 @@ public class CommandLineMain {
 	
 	public static void main(String[] args) {
 		
-		/** Load what we are doing from config */
-		phageaConfig config = new phageaConfig(args[0]);
 		
-		//String name = config.getTypeName();	
-		//phageaLandscape landscape = new phageaLandscape(name);
-		phageaLandscape landscape = new phageaLandscape(config);
-		
-		/** Get/Scale the whole landscape if appropriate */
-		int ndims = landscape.getNdims();
-		System.out.print("Evaluation on a "+ndims+"-dimensional landscape\n");
-		switch(ndims){
-			case 1:
-				landscape.get1DLandscape();
-				break;
-			case 2:
-				landscape.get2DLandscape();
-				break;
-			default:
-				//if(config.type == landscapeType.NKP && config.nkpN < 21)
-				//	landscape.get1DnkpLandscape();
+		if(args.length<1){
+			System.out.print("ERROR: Incorrect number of arguments\nUsage: java -jar phagea.jar configfile.cfg\n");
 		}
+		else{
 			
-		//TODO: We have to get the landscape before we initialise the fitness values - feels a bit cludgy...
-		config.setInitFit(landscape.getNdims(),landscape.getMaxValue(),landscape.getMinValue());
-		config.nReps = 1;
-		
-		//float[] fit = landscape.get1DLandscape();
-		String configString = config.printConfig();
-		System.out.print(configString);
-		
-		phageaConfig cfgRanNop = config;
-		phageaConfig cfgRanRep = config;
-		phageaConfig cfgFixNop = config;
-		phageaConfig cfgFixRep = config;
-		
-		/** Set the init */
-		cfgRanNop.setRandInit(true);
-		cfgRanRep.setRandInit(true);
-		cfgFixNop.setRandInit(false);
-		cfgFixRep.setRandInit(false);
-		
-		/** Set the phage */
-		cfgRanNop.setReplenish(false);
-		cfgRanRep.setReplenish(true);
-		cfgFixNop.setReplenish(false);
-		cfgFixRep.setReplenish(true);
-		
-		/** Set the start phage */
-		cfgRanNop.setStartPhageCount(0);
-		cfgFixNop.setStartPhageCount(0);
-		
-		/** Now we can run a bunch of trials to gather data */
-		for(int nt = 30; nt < 100 ; nt ++){
-
+			/** Load what we are doing from config */
+			phageaConfig config = new phageaConfig(args[0]);
 			
+			//String name = config.getTypeName();	
+			//phageaLandscape landscape = new phageaLandscape(name);
+			phageaLandscape landscape = new phageaLandscape(config);
 			
-			//System.out.println("NKP configured with random seed of "+nt);
-			landscape = null;
-			landscape = new phageaLandscape(config,nt);
+			/** Get/Scale the whole landscape if appropriate */
+			int ndims = landscape.getNdims();
+			System.out.print("Evaluation on a "+ndims+"-dimensional landscape\n");
+			switch(ndims){
+				case 1:
+					landscape.get1DLandscape();
+					break;
+				case 2:
+					landscape.get2DLandscape();
+					break;
+				default:
+					//if(config.type == landscapeType.NKP && config.nkpN < 21)
+					//	landscape.get1DnkpLandscape();
+			}
+				
+			//TODO: We have to get the landscape before we initialise the fitness values - feels a bit cludgy...
+			config.setInitFit(landscape.getNdims(),landscape.getMaxValue(),landscape.getMinValue());
+			config.nReps = 1;
 			
-			landscape.findNKPMaxMin();
+			//float[] fit = landscape.get1DLandscape();
+			String configString = config.printConfig();
+			System.out.print(configString);
 			
-
-			//public void trialToFile(int trialno, phageaConfig config, phageaLandscape landscape, String outfilename)
-			trialToFile(nt,cfgRanNop,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_RanNophage.txt");
-			trialToFile(nt,cfgRanRep,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_RanReplenish.txt");
-			trialToFile(nt,cfgFixNop,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_FixNophage.txt");
-			trialToFile(nt,cfgFixRep,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_FixReplenish.txt");
+			phageaConfig cfgRanNop = config;
+			phageaConfig cfgRanRep = config;
+			phageaConfig cfgFixNop = config;
+			phageaConfig cfgFixRep = config;
 			
+			/** Set the init */
+			cfgRanNop.setRandInit(true);
+			cfgRanRep.setRandInit(true);
+			cfgFixNop.setRandInit(false);
+			cfgFixRep.setRandInit(false);
 			
+			/** Set the phage */
+			cfgRanNop.setReplenish(false);
+			cfgRanRep.setReplenish(true);
+			cfgFixNop.setReplenish(false);
+			cfgFixRep.setReplenish(true);
 			
-			//for(int reps = 0; reps < config.nReps; reps++){
+			/** Set the start phage */
+			cfgRanNop.setStartPhageCount(0);
+			cfgFixNop.setStartPhageCount(0);
+			
+			/** Now we can run a bunch of trials to gather data */
+			for(int nt = 30; nt < 100 ; nt ++){
+	
 				
 				
+				//System.out.println("NKP configured with random seed of "+nt);
+				landscape = null;
+				landscape = new phageaLandscape(config,nt);
+				
+				landscape.findNKPMaxMin();
+				
+	
+				//public void trialToFile(int trialno, phageaConfig config, phageaLandscape landscape, String outfilename)
+				trialToFile(nt,cfgRanNop,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_RanNophage.txt");
+				trialToFile(nt,cfgRanRep,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_RanReplenish.txt");
+				trialToFile(nt,cfgFixNop,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_FixNophage.txt");
+				trialToFile(nt,cfgFixRep,landscape,"nkpN"+config.nkpN+"K"+config.nkpK+"P"+config.nkpP+"_Sig"+config.getSigma2()+"_FixReplenish.txt");
+				
+				//for(int reps = 0; reps < config.nReps; reps++){
+								
+			}
 		}
 	}
 	
