@@ -18,7 +18,7 @@ public class phageaLandscape {
 	
 	landscapeType type;
 	
-	private int sDim = 1000; //TODO: This should ALWAYS be cfg.ndims
+	private int sDim = 1000;
 
 	/** Scaling factor variables - to set fitness range between 0.8 and 1.2 */
 	//final float n3hmax = (float) 1.0;
@@ -255,8 +255,15 @@ public class phageaLandscape {
 	
 	
 	public float[] get1DLandscape(){
+		
+
+		System.out.println("in get1Dlandscape...allocating landscape and genome");
+		
 		float[] landscape = new float[sDim];
 		float[] genome = new float[1];
+		
+
+		System.out.println("...done");
 		
 		/** Escape the non-1D landscapes */
 		switch(type){
@@ -656,6 +663,11 @@ public class phageaLandscape {
 			nkp.findMaxMin();
 		else
 			System.out.println("nkp is null!");
+	}
+
+	public landscapeType getType() {
+		// TODO Auto-generated method stub
+		return type;
 	}
 	
     

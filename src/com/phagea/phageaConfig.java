@@ -281,6 +281,10 @@ public class phageaConfig {
 		replenish = c;
 	}
 
+	public void setRescaling(boolean c) {
+		rescaling = c;
+	}
+
 	public void setStartPhageCount(int i) {
 		startPhageCount = i;
 	}

@@ -479,7 +479,25 @@ public class phageaEngine {
 		stats.modalGeneIndex = 0;
 		
 		switch(landscape.getNdims()){
+		//TODO: case 1 is a copy of case 2 with one less dim on stats.modalGene[0] - there may be other problems to deal with 
 			case 1: 
+				if ( mf !=null) {
+					int cmax = 0, mx = 0, my = 0;
+					for (int i = 0; i < stats.cellHist.length; i++) {
+						for (int j = 0; j < stats.cellHist[0].length; j++) {
+							if (mf[i][j] > cmax) {
+								cmax = mf[i][j];
+								mx = i;
+								my = j;
+							}
+						}
+					}
+					stats.modalGene[0] = (float) ((float) mx / cfg.nbin);
+					//TODO: This should be in print_stats..
+					if(verbose)
+						System.out.println("Modal gene is "+stats.modalGene[0]);
+				}
+				break;
 			case 2:
 				if ( mf !=null) {
 					int cmax = 0, mx = 0, my = 0;
