@@ -1,0 +1,8 @@
+
+
+#gedit files
+*~
+
+#eclipse project file
+.project
+.classpath
