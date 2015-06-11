@@ -44,7 +44,7 @@ public class phageaEngine {
 	public phageaEngine(phageaConfig config, phageaLandscape landscape){
 		
 		this.cfg = config;
-		resource = cfg.r0;
+		resource = cfg.getR0();
 		this.landscape = landscape;
 		init();
 	}
@@ -152,7 +152,7 @@ public class phageaEngine {
 	    return gam 
 	*/
 	float GammaFunction(Agent cell){
-		float gamf = (cfg.rGamma * resource * scaledFitness(cell.fitness)/*cell.fitness*/)/(resource + cfg.rK);
+		float gamf = (cfg.getrGamma() * resource * scaledFitness(cell.fitness)/*cell.fitness*/)/(resource + cfg.getrK());
 		//float gamf = (cfg.rGamma * resource * scaleFitness(cell.fitness))/(resource + cfg.rK);
 		return gamf;
 	}
@@ -698,7 +698,7 @@ public class phageaEngine {
 		int nPhage = phage.size();
 		int nCells = cells.size();
 		if(!cells.isEmpty()){
-			int n = (int) (cfg.Theta * cells.size() * phage.size());
+			int n = (int) (cfg.getTheta() * cells.size() * phage.size());
 			List<Agent> newPhage = new ArrayList<Agent>();
 			
 			for(int i=0;i<n;i++){
@@ -765,14 +765,14 @@ public class phageaEngine {
 			for(Agent c:cells){
 				float r = (float) Math.random();
 				/** the python way of doing this KEPT cells rather than KILLING them! */
-				if(cfg.w >= r){
+				if(cfg.getTheta() >= r){
 					c.hasdied=true;
 				}
 			}
 		}
 		for(Agent v:phage){
 			float r = (float) Math.random();
-			if(cfg.w >= r)
+			if(cfg.getTheta() >= r)
 				v.hasdied=true;
 		}
 		removeDead();
@@ -883,7 +883,7 @@ public class phageaEngine {
 	private Collection<? extends Agent> mutPhage(Agent v) {
 
 		List<Agent>		lysed		= new ArrayList<Agent>();
-		for(int b=0;b<cfg.b;b++){
+		for(int b=0;b<cfg.getBurstSize();b++){
 			Agent l = new Agent(v.genome);
 			l.genome  = mutateGenome(l.genome);
 			lysed.add(l);
@@ -909,14 +909,14 @@ public class phageaEngine {
 		
 		float sum=0;
 		
-		resource += -(cfg.rOmega *(resource - cfg.r0));
+		resource += -(cfg.getrOmega() *(resource - cfg.getR0()));
 		
 		for(Agent cell:cells){
 			sum += GammaFunction(cell);
 		}
 		
 		//resource = cfg.r0 - (cfg.rEpsilon * sum);
-		resource += -(cfg.rEpsilon * sum);
+		resource += -(cfg.getrEpsilon() * sum);
 	}
 
 	public int[][] getCellHist(){

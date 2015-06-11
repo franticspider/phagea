@@ -35,18 +35,18 @@ public class phageaConfig {
 	float	mutsigma	= (float) 	0.005;
 	
 	//K = 1000 (so theta = 0.002/K)
-	float	Theta 		= (float) 	0.002/1000;//1.5e-6;//0.002/1000;;
-	int		b 			= 			71;
-	float	w			= (float) 	0.066;
+	private float	Theta 		= (float) 	0.002/1000;//1.5e-6;//0.002/1000;;
+	private int		burstSize 			= 			71;
+	private float	www			= (float) 	0.066; //TODO: Get rid of either www or rOmega
 	float	sigma2		= (float) 	0.005;
 	float	rho			= (float) 	1.0;
 
 	
-	float	r0			= (float) 	2.2;//1.2;//2.2;;
-	float	rEpsilon	= (float) 	2.6E-6;//5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */;
-	float	rGamma		= (float) 	0.0213;//1.2;
-	float	rOmega		= 			w; //TODO: :Get rid of one of these variables!
-	float	rK			= 			4;
+	private float	r0			= (float) 	2.2;//1.2;//2.2;;
+	private float	rEpsilon	= (float) 	2.6E-6;//5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */;
+	private float	rGamma		= (float) 	0.0213;//1.2;
+	private float	rOmega		= 			www; 
+	private float	rK			= 			4;
 
 	/** NKP Landscape varibles */
 	public int		nkpN = 10;
@@ -92,19 +92,19 @@ public class phageaConfig {
 			
 			mutsigma 	= Float.parseFloat(cfgfile.getProperty("MUTSIGMA",""+mutsigma));
 			Theta 		= Float.parseFloat(cfgfile.getProperty("THETA",""+Theta));		//"(float) 2.5e-6;//1.5e-6;//0.002/1000;
-			b 			= Integer.parseInt(cfgfile.getProperty("B",""+b));			//71;
-			w 			= Float.parseFloat(cfgfile.getProperty("W",""+w));			//(float) 0.066;
+			setBurstSize(Integer.parseInt(cfgfile.getProperty("B",""+getBurstSize())));			//71;
+			www 			= Float.parseFloat(cfgfile.getProperty("W",""+www));			//(float) 0.066;
 			sigma2		= Float.parseFloat(cfgfile.getProperty("SIGMA2",""+sigma2));		//(float) 0.005;
 			rho			= Float.parseFloat(cfgfile.getProperty("RHO",""+rho));			//(float) 1.0;
 			
 			
 			
 			//Resource params:
-			r0 			= Float.parseFloat(cfgfile.getProperty("R0",""+r0));//(float) 1.2;//2.2;
-			rEpsilon 	= Float.parseFloat(cfgfile.getProperty("REPSILON",""+rEpsilon));//(float) 5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */
-			rGamma 		= Float.parseFloat(cfgfile.getProperty("RGAMMA",""+rGamma));//(float) 1.2;//0.0213;//1.2 //TODO: Check which of these produces the values in dynamics.pdf
-			rOmega 		= Float.parseFloat(cfgfile.getProperty("ROMEGA",""+rOmega));//w;
-			rK 			= Float.parseFloat(cfgfile.getProperty("RK",""+rK));//4;
+			setR0(Float.parseFloat(cfgfile.getProperty("R0",""+getR0())));//(float) 1.2;//2.2;
+			setrEpsilon(Float.parseFloat(cfgfile.getProperty("REPSILON",""+getrEpsilon())));//(float) 5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */
+			setrGamma(Float.parseFloat(cfgfile.getProperty("RGAMMA",""+getrGamma())));//(float) 1.2;//0.0213;//1.2 //TODO: Check which of these produces the values in dynamics.pdf
+			setrOmega(Float.parseFloat(cfgfile.getProperty("ROMEGA",""+getrOmega())));//w;
+			setrK(Float.parseFloat(cfgfile.getProperty("RK",""+getrK())));//4;
 			
 			nkpN 		= Integer.parseInt(cfgfile.getProperty("NKPN", ""+nkpN));
 			nkpK 		= Integer.parseInt(cfgfile.getProperty("NKPK", ""+nkpK));
@@ -141,7 +141,7 @@ public class phageaConfig {
 	/** GETTERS */
 	
 	public float getw(){
-		return w;
+		return www;
 	}
 	public float getrGamma(){
 		return rGamma;
@@ -254,17 +254,17 @@ public class phageaConfig {
 		
 		//K = 1000 (so theta = 0.002/K)
 		s = s + "Theta           = "+Theta+"\n";// 	0.002/1000;//1.5e-6;//0.002/1000;;
-		s = s + "b               = "+b+"\n";//			71;
-		s = s + "w               = "+w+"\n";//(float) 	0.066;
+		s = s + "b               = "+getBurstSize()+"\n";//			71;
+		s = s + "w               = "+www+"\n";//(float) 	0.066;
 		s = s + "sigma2          = "+sigma2+"\n";//(float) 	0.005;
 		s = s + "rho             = "+rho+"\n";
 		s = s + ""+"\n";
 
-		s = s + "r0              = "+r0+"\n";//(float) 	2.2;//1.2;//2.2;;
-		s = s + "rEpsilon        = "+rEpsilon+"\n";//(float) 	5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */;
-		s = s + "rGamma          = "+rGamma+"\n";//(float) 	1.2;
-		s = s + "rOmega          = "+rOmega+"\n";
-		s = s + "rK              = "+rK+"\n";//			4;
+		s = s + "r0              = "+getR0()+"\n";//(float) 	2.2;//1.2;//2.2;;
+		s = s + "rEpsilon        = "+getrEpsilon()+"\n";//(float) 	5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */;
+		s = s + "rGamma          = "+getrGamma()+"\n";//(float) 	1.2;
+		s = s + "rOmega          = "+getrOmega()+"\n";
+		s = s + "rK              = "+getrK()+"\n";//			4;
 		
 		return s;
 	}
@@ -291,6 +291,46 @@ public class phageaConfig {
 
 	public void setAffinitySigma(float sig) {
 		sigma2 = sig;
+	}
+
+	public float getR0() {
+		return r0;
+	}
+
+	public void setR0(float r0) {
+		this.r0 = r0;
+	}
+
+	public void setrGamma(float rGamma) {
+		this.rGamma = rGamma;
+	}
+
+	public float getrK() {
+		return rK;
+	}
+
+	public void setrK(float rK) {
+		this.rK = rK;
+	}
+
+	public float getrOmega() {
+		return rOmega;
+	}
+
+	public void setrOmega(float rOmega) {
+		this.rOmega = rOmega;
+	}
+
+	public void setrEpsilon(float rEpsilon) {
+		this.rEpsilon = rEpsilon;
+	}
+
+	public int getBurstSize() {
+		return burstSize;
+	}
+
+	public void setBurstSize(int burstSize) {
+		this.burstSize = burstSize;
 	}
 	
 }
