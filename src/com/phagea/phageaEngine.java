@@ -152,7 +152,7 @@ public class phageaEngine {
 	    return gam 
 	*/
 	float GammaFunction(Agent cell){
-		float gamf = (cfg.getrGamma() * resource * scaledFitness(cell.fitness)/*cell.fitness*/)/(resource + cfg.getrK() );
+		float gamf = (cfg.getrGamma() * resource * scaledFitness(cell.fitness)/*cell.fitness*/)/(resource + cfg.getrK());
 		//float gamf = (cfg.rGamma * resource * scaleFitness(cell.fitness))/(resource + cfg.rK);
 		return gamf;
 	}
@@ -765,14 +765,14 @@ public class phageaEngine {
 			for(Agent c:cells){
 				float r = (float) Math.random();
 				/** the python way of doing this KEPT cells rather than KILLING them! */
-				if(cfg.getTheta() >= r){
+				if(cfg.getrOmega() >= r){
 					c.hasdied=true;
 				}
 			}
 		}
 		for(Agent v:phage){
 			float r = (float) Math.random();
-			if(cfg.getTheta() >= r)
+			if(cfg.getrOmega() >= r)
 				v.hasdied=true;
 		}
 		removeDead();
