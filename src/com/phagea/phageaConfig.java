@@ -1,7 +1,10 @@
 package com.phagea;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Properties;
 
 public class phageaConfig {
@@ -36,16 +39,16 @@ public class phageaConfig {
 	
 	//K = 1000 (so theta = 0.002/K)
 	private float	Theta 		= (float) 	0.002/1000;//1.5e-6;//0.002/1000;;
-	private int		burstSize 			= 			71;
+	private int		burstSize 	= 			71;
 	private float	www			= (float) 	0.066; //TODO: Get rid of either www or rOmega
-	float	sigma2		= (float) 	0.005;
-	float	rho			= (float) 	1.0;
+	float	sigma2				= (float) 	0.005;  
+	float	rho					= (float) 	1.0;
 
 	
 	private float	r0			= (float) 	2.2;//1.2;//2.2;;
 	private float	rEpsilon	= (float) 	2.6E-6;//5e-4;// 2.6e-6; /** see page 8 of dynamics.pdf */;
 	private float	rGamma		= (float) 	0.0213;//1.2;
-	private float	rOmega		= 			www; 
+	private float	rOmega		= (float) 	0.066; //www; 
 	private float	rK			= 			4;
 
 	/** NKP Landscape varibles */
@@ -93,7 +96,7 @@ public class phageaConfig {
 			mutsigma 	= Float.parseFloat(cfgfile.getProperty("MUTSIGMA",""+mutsigma));
 			Theta 		= Float.parseFloat(cfgfile.getProperty("THETA",""+Theta));		//"(float) 2.5e-6;//1.5e-6;//0.002/1000;
 			setBurstSize(Integer.parseInt(cfgfile.getProperty("B",""+getBurstSize())));			//71;
-			www 			= Float.parseFloat(cfgfile.getProperty("W",""+www));			//(float) 0.066;
+			//www 			= Float.parseFloat(cfgfile.getProperty("W",""+www));			//(float) 0.066;
 			sigma2		= Float.parseFloat(cfgfile.getProperty("SIGMA2",""+sigma2));		//(float) 0.005;
 			rho			= Float.parseFloat(cfgfile.getProperty("RHO",""+rho));			//(float) 1.0;
 			
@@ -140,9 +143,10 @@ public class phageaConfig {
 	
 	/** GETTERS */
 	
-	public float getw(){
-		return www;
-	}
+	//public float getw(){
+	//	return www;
+	//}
+	
 	public float getrGamma(){
 		return rGamma;
 	}
@@ -209,6 +213,23 @@ public class phageaConfig {
 	
 	public float getSigma2(){
 		return sigma2;
+	}
+	
+	
+	/** 
+	 * 
+	 */
+	public void configToFile(String outfilename){
+		
+		try {
+			
+		    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(outfilename, false)));
+		    String strout = printConfig();
+			out.println(strout);
+			out.close();
+		} catch (IOException e) {
+			// oh noes!
+		}
 	}
 	
 	

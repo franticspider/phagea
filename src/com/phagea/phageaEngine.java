@@ -152,7 +152,7 @@ public class phageaEngine {
 	    return gam 
 	*/
 	float GammaFunction(Agent cell){
-		float gamf = (cfg.getrGamma() * resource * scaledFitness(cell.fitness)/*cell.fitness*/)/(resource + cfg.getrK());
+		float gamf = (cfg.getrGamma() * resource * scaledFitness(cell.fitness)/*cell.fitness*/)/(resource + cfg.getrK() );
 		//float gamf = (cfg.rGamma * resource * scaleFitness(cell.fitness))/(resource + cfg.rK);
 		return gamf;
 	}
