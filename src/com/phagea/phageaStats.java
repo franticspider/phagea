@@ -89,7 +89,11 @@ public class phageaStats {
 		obsMin = new float[T];
 	}
 	
-	/**
+
+	
+	
+	
+	/**TODO: not sure why this is commented out - is it elsewhere??
 	void ExportToFiles(String froot){
 		//1: create a popdy with host,phage and res
 		FileOutputStream fop = null;
@@ -130,6 +134,34 @@ public class phageaStats {
 			}
 		}
 	}
+	
+	public float meanCellPop(final int minT){
+		float mmean=0;
+		float tot=0;
+		int count=0;
+		
+		if(minT>=cellPopDy.length){
+			//TODO: flag an error
+		}
+		
+		for(int i=minT; i<cellPopDy.length; i++){
+			
+		}
+		
+		if(count<1){
+			//TODO: flag an error
+			return -1;
+		}
+		
+		return mmean;
+	}
+	
+	
+	
+	
+	
+	
+	
 }
 
 

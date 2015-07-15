@@ -988,6 +988,13 @@ public class phageaEngine {
 		return stats.getModalGene();
 	}
 	
+	public float getMeanCellPop(){
+		return stats.meanCellPop(0);
+	}
+	
+	public float getMeanCellPop(int minT){
+		return stats.meanCellPop(minT);
+	}	
 }
 
 
