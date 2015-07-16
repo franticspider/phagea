@@ -993,6 +993,7 @@ public class phageaEngine {
 	}
 	
 	public float getMeanCellPop(int minT){
+		System.out.println("getting mean cell population from time "+minT);
 		return stats.meanCellPop(minT);
 	}	
 }

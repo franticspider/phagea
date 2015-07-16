@@ -142,10 +142,13 @@ public class phageaStats {
 		
 		if(minT>=cellPopDy.length){
 			//TODO: flag an error
+			System.out.println("ERROR: No events after time "+minT+" returning -2");
+			return -2;
 		}
 		
 		for(int i=minT; i<cellPopDy.length; i++){
-			
+			tot += cellPopDy[i];
+			count++;
 		}
 		
 		if(count<1){
@@ -153,6 +156,7 @@ public class phageaStats {
 			return -1;
 		}
 		
+		mmean = tot/count;
 		return mmean;
 	}
 	
